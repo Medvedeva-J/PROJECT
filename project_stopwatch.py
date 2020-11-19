@@ -1,11 +1,11 @@
 import sys
 from time import *
-from PyQt5.QtWidgets import QCalendarWidget, QMainWindow, QApplication, QPushButton, QLabel, QLineEdit
+from PyQt5.QtWidgets import QDialog, QMainWindow, QApplication, QPushButton, QLabel, QLineEdit
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer, QTime
 
 
-class Stopwatch(QMainWindow):
+class Stopwatch(QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi('stopwatch.ui', self)

@@ -1,13 +1,13 @@
 import sys
 import easygui
 from time import *
-from PyQt5.QtWidgets import QWidget, QCalendarWidget, QMainWindow, QApplication, QPushButton, QLabel, QLineEdit
+from PyQt5.QtWidgets import QDialog, QCalendarWidget, QMainWindow, QApplication, QPushButton, QLabel, QLineEdit
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer, QTime
 import pygame
 
 
-class Timer(QMainWindow):
+class Timer(QDialog):
     def __init__(self):
         pygame.init()
         self.song = pygame.mixer.Sound('рингтоны\hangouts.mp3')

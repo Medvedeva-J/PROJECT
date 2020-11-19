@@ -2,9 +2,9 @@ import sys
 import sqlite3
 import pygame
 import easygui
-import project_timer as pt
-import project_stopwatch as psw
-import project_alarm as pa
+from project_alarm import Alarm
+from project_stopwatch import Stopwatch
+from project_timer import Timer
 import datetime as dt
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer, QModelIndex
@@ -27,13 +27,19 @@ class Watch(QMainWindow):
         self.tmr.start()
 
     def stopwatch(self):
-        Stopwatch.sw_main(self)
+        sw = Stopwatch()
+        print('hello')
+        sw.exec_()
 
     def timer(self):
-        Timer.t_main(self)
+        t = Timer()
+        print('hello')
+        t.exec_()
 
     def alarm(self):
-        pa.Alarm.a_main(self)
+        al = Alarm()
+        print('hello')
+        al.exec_()
 
     def run(self):
         self.clock.setText(str(dt.datetime.now().time()).split('.')[0])

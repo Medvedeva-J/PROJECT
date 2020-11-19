@@ -6,16 +6,16 @@ import datetime as dt
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer, QModelIndex
 from PyQt5.QtWidgets import QWidget, QTableWidget, QSpinBox,\
-    QTableWidgetItem, QMainWindow, QComboBox, QApplication, QPushButton, QLabel, QTextEdit
+    QTableWidgetItem, QMainWindow, QComboBox, QApplication, QPushButton, QLabel, QTextEdit, QDialog
 
 
-class Alarm(QWidget):
-    def __init__(self):
+class Alarm(QDialog):
+    def __init__(self, parent=None):
         pygame.init()
         self.started = dict()
-        super().__init__()
+        super(Alarm, self).__init__(parent)
         self.q = ''
-        uic.loadUi('alarm2.ui', self)
+        uic.loadUi('alarm.ui', self)
         self.ok.hide()
         self.choose_ringtone.clicked.connect(self.select)
         self.confirm.clicked.connect(self.add_alarm)
@@ -51,8 +51,8 @@ class Alarm(QWidget):
 
     def delete_alarm(self):
         a = self.table.selectionModel().selectedRows()
-        for i in a:
-            name = self.table.item(i.row(), 0).text()
+        for i in range(len(a) - 1, -1, -1):
+            name = self.table.item(a[i].row(), 0).text()
             name = self.cur.execute(f"""select id from start
                         where alarm_name = '{name}'""").fetchone()
             name = name[0]
