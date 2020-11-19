@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QWidget, QTableWidget, QSpinBox,\
 
 
 class Alarm(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self):
         pygame.init()
         self.started = dict()
         super(Alarm, self).__init__(parent)
