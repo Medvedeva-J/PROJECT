@@ -5,15 +5,15 @@ import easygui
 import datetime as dt
 from PyQt5 import uic
 from PyQt5.QtCore import QTimer, QModelIndex
-from PyQt5.QtWidgets import QWidget, QTableWidget, QSpinBox,\
-    QTableWidgetItem, QMainWindow, QComboBox, QApplication, QPushButton, QLabel, QTextEdit, QDialog
+from PyQt5.QtWidgets import QDialog, QWidget, QTableWidget, QSpinBox, \
+    QTableWidgetItem, QMainWindow, QComboBox, QApplication, QPushButton, QLabel, QTextEdit
 
 
 class Alarm(QDialog):
     def __init__(self):
         pygame.init()
         self.started = dict()
-        super(Alarm, self).__init__(parent)
+        super().__init__()
         self.q = ''
         uic.loadUi('alarm.ui', self)
         self.ok.hide()
@@ -21,14 +21,14 @@ class Alarm(QDialog):
         self.confirm.clicked.connect(self.add_alarm)
         self.btn_delete.clicked.connect(self.delete_alarm)
         self.ok.clicked.connect(self.stop_music)
-        
+
         self.con = sqlite3.connect('project_ringtones.sqlite')
         self.cur = self.con.cursor()
         self.result = self.cur.execute("""select * from start order by alarm_time""").fetchall()
         self.table_update()
         self.name()
         self.check_alarm()
-        
+
     def name(self):
         b = []
         for i in range(self.table.rowCount()):
@@ -61,7 +61,7 @@ class Alarm(QDialog):
             self.con.commit()
         self.table_update()
         self.name()
-            
+
     def table_update(self):
         self.result = self.cur.execute("""select * from start order by alarm_time""").fetchall()
         self.table.setRowCount(len(self.result))
@@ -103,7 +103,7 @@ class Alarm(QDialog):
         self.table_update()
         self.name()
         self.check_alarm()
-            
+
     def run(self):
         f = 0
         name = self.sender()
@@ -167,11 +167,10 @@ class Alarm(QDialog):
         self.con.commit()
         self.table_update()
 
-
     def check_alarm(self):
         if len(self.result) > 0:
             for i in range(len(self.result)):
-                f = self.result[i][0] 
+                f = self.result[i][0]
                 if f not in self.started:
                     setattr(self, f'tmr_{self.result[i][0]}', QTimer(self))
                     self.started[self.result[i][0]] = getattr(self, f'tmr_{self.result[i][0]}')
@@ -179,10 +178,23 @@ class Alarm(QDialog):
                     setattr(self, f'k_{self.result[i][0]}', str(self))
                     getattr(self, f'tmr_{self.result[i][0]}').timeout.connect(self.run)
                     getattr(self, f'tmr_{self.result[i][0]}').start()
-                    
-                
+
     def select(self):
         input_file = easygui.fileopenbox(default="рингтоны/*.mp3", filetypes=["*.mp3"])
         self.sound = pygame.mixer.Sound(input_file)
         self.song_path = input_file
         self.choose_ringtone.setText(input_file.split('\\')[-1])
+
+    def a_main(self):
+        if __name__ == '__main__':
+            a_app = QApplication(sys.argv)
+            al = Alarm()
+            al.show()
+            sys.exit(a_app.exec())
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    al = Alarm()
+    al.show()
+    sys.exit(app.exec())

@@ -14,12 +14,12 @@ class Stopwatch(QDialog):
         self.btn_start.clicked.connect(self.run)
         self.btn_stop.clicked.connect(self.stop)
         self.btn_pause.clicked.connect(self.pause)
+        self.last_stop = '00:00:00'
 
     def run(self):
         self.flags.clear()
         self.history = []
         self.begin = round(time(), 2)
-        self.last_stop = self.label.text()
         self.btn_start.hide()
         self.btn_stop.show()
         self.btn_pause.show()
@@ -39,6 +39,7 @@ class Stopwatch(QDialog):
 
     def stop(self):
         self.tmr.stop()
+        self.last_stop = '00:00:00'
         self.btn_stop.hide()
         self.btn_pause.setText('PAUSE')
         self.btn_pause.hide()
@@ -53,11 +54,13 @@ class Stopwatch(QDialog):
             m_seconds = self.label.text().split(':')
             m_seconds = list(map(lambda x: int(x), m_seconds))
             m_seconds = m_seconds[0] * 60 * 100 + m_seconds[1] * 100 + m_seconds[-1]
+            print(m_seconds)
 
             m_seconds2 = self.last_stop.split(':')
             m_seconds2 = list(map(lambda x: int(x), m_seconds2))
             m_seconds2 = (m_seconds2[0] * 60 * 100) + (m_seconds2[1] * 100) + m_seconds2[-1]
-            
+            print(m_seconds2)
+
             m = m_seconds - m_seconds2
             minutes2 = m // 6000
             seconds2 = (m % 6000) // 100
