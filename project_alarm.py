@@ -9,13 +9,13 @@ from PyQt5.QtWidgets import QWidget, QTableWidget, QSpinBox,\
     QTableWidgetItem, QMainWindow, QComboBox, QApplication, QPushButton, QLabel, QTextEdit
 
 
-class Alarm(QWidget):
+class Alarm(QMainWindow):
     def __init__(self):
         pygame.init()
         self.started = dict()
         super().__init__()
         self.q = ''
-        uic.loadUi('alarm2.ui', self)
+        uic.loadUi('alarm.ui', self)
         self.ok.hide()
         self.choose_ringtone.clicked.connect(self.select)
         self.confirm.clicked.connect(self.add_alarm)
