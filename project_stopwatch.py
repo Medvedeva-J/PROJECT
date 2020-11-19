@@ -66,7 +66,7 @@ class Stopwatch(QDialog):
             seconds2 = (m % 6000) // 100
             m_seconds2 = (m % 6000) % 100
 
-            a.append(f'+ {int(minutes2)}:{int(seconds2)}:{int(m_seconds2)}')
+            a.append(f'+ {str(minutes2).rjust(2, "0")}:{str(seconds2).rjust(2, "0")}:{str(m_seconds2).rjust(2, "0")}')
             a.append(self.label.text())
             self.last_stop = self.label.text()
             a = '\t'.join(a)

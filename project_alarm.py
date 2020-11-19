@@ -180,10 +180,15 @@ class Alarm(QDialog):
                     getattr(self, f'tmr_{self.result[i][0]}').start()
 
     def select(self):
-        input_file = easygui.fileopenbox(default="рингтоны/*.mp3", filetypes=["*.mp3"])
-        self.sound = pygame.mixer.Sound(input_file)
-        self.song_path = input_file
-        self.choose_ringtone.setText(input_file.split('\\')[-1])
+        try:
+            self.label_6.hide()
+            input_file = easygui.fileopenbox(default="рингтоны/*.mp3", filetypes=["*.mp3"])
+            self.sound = pygame.mixer.Sound(input_file)
+            self.song_path = input_file
+            self.choose_ringtone.setText(input_file.split('\\')[-1])
+        except TypeError:
+            self.label_6.setText('error')
+            self.label_6.show()
 
     def a_main(self):
         if __name__ == '__main__':
