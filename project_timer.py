@@ -66,15 +66,3 @@ class Timer(QDialog):
             self.song.stop()
             self.btn_stop.setText('Сброс')
             self.btn_start.setEnabled(True)
-
-    def t_main(self):
-        app = QApplication(sys.argv)
-        t = Timer()
-        t.show()
-        sys.exit(app.exec())
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    t = Timer()
-    t.show()
-    sys.exit(app.exec())

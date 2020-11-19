@@ -38,7 +38,6 @@ class Watch(QMainWindow):
 
     def alarm(self):
         al = Alarm()
-        print('hello')
         al.exec_()
 
     def run(self):

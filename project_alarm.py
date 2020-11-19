@@ -59,8 +59,8 @@ class Alarm(QDialog):
             self.cur.execute(f"""delete from start where id = {name}""").fetchone()
             self.started[name].stop()
             self.con.commit()
-            self.table_update()
-            self.name()
+        self.table_update()
+        self.name()
             
     def table_update(self):
         self.result = self.cur.execute("""select * from start order by alarm_time""").fetchall()
@@ -186,16 +186,3 @@ class Alarm(QDialog):
         self.sound = pygame.mixer.Sound(input_file)
         self.song_path = input_file
         self.choose_ringtone.setText(input_file.split('\\')[-1])
-
-    def a_main(self):
-        if __name__ == '__main__':
-            a_app = QApplication(sys.argv)
-            al = Alarm()
-            al.show()
-            sys.exit(a_app.exec())
-            
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    al = Alarm()
-    al.show()
-    sys.exit(app.exec())

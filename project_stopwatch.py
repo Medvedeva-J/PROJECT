@@ -72,10 +72,3 @@ class Stopwatch(QDialog):
         else:
             self.btn_pause.setText('PAUSE')
             self.tmr.start()
-
-    def sw_main(self):
-        if __name__ == '__main__':
-            app = QApplication(sys.argv)
-            sw = Stopwatch()
-            sw.show()
-            sys.exit(app.exec())
