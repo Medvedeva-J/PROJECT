@@ -28,12 +28,10 @@ class Watch(QMainWindow):
 
     def stopwatch(self):
         sw = Stopwatch()
-        print('hello')
         sw.exec_()
 
     def timer(self):
         t = Timer()
-        print('hello')
         t.exec_()
 
     def alarm(self):
