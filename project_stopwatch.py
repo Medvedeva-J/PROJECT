@@ -24,7 +24,7 @@ class Stopwatch(QDialog):
             self.history = []
             self.begin = dt.datetime.now().time()
             self.last_start = self.begin
-            self.last_stop = dt.datetime.now().time()
+            self.last_stop = self.begin
 
         self.btn_start.hide()
         self.btn_stop.show()
@@ -115,7 +115,7 @@ class Stopwatch(QDialog):
             seconds2 = (m % 6000) // 100
             m_seconds2 = (m % 6000) % 100
 
-            a.append(f'+{str(minutes2).rjust(2, "0")}:{str(seconds2).rjust(2, "0")}:{str(m_seconds2 - 1).rjust(2, "0")}')
+            a.append(f'+{str(minutes2).rjust(2, "0")}:{str(seconds2).rjust(2, "0")}:{str(m_seconds2).rjust(2, "0")}')
             a.append(self.label.text())
             a = '\t'.join(a)
             self.history.append(a)
@@ -123,5 +123,5 @@ class Stopwatch(QDialog):
         else:
             self.btn_pause.setText('PAUSE')
             self.last_stop = dt.datetime.now().time()
-            self.last_start = dt.datetime.now().time()
+            self.last_start = self.last_stop
             self.run()
